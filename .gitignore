@@ -1,1 +1,9 @@
+# ENVIRONMENT
 .env
+.env.development
+
+# SCRIPTS
+watch.sh
+
+# DOCKER
+/docker
