@@ -8,7 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func Connect() *gorm.DB {
+var DB *gorm.DB
+
+func Connect() {
 	user := env.Get("POSTGRES_USER")
 	password := env.Get("POSTGRES_PASSWORD")
 	database := env.Get("POSTGRES_DB")
@@ -21,7 +23,5 @@ func Connect() *gorm.DB {
 	)
 
 	// TODO: Add error handling
-	db, _ := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
-	return db
+	DB, _ = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 }
