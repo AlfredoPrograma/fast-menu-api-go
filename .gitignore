@@ -5,8 +5,8 @@
 # SCRIPTS
 watch.sh
 
-# DOCKER
-/docker
+# DOCKER VOLUMES
+/_volumes
 
 # LOGS
 *.log
