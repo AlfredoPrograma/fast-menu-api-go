@@ -10,7 +10,8 @@ func Load() {
 	viper.SetConfigFile(".env")
 
 	if err := viper.ReadInConfig(); err != nil {
-		logger.Error(err.Error())
+		logger.Use().Error().
+			Msg(err.Error())
 	}
 }
 

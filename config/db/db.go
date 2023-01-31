@@ -26,7 +26,8 @@ func Connect() {
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		logger.Error(err.Error())
+		logger.Use().Error().
+			Msg(err.Error())
 	}
 
 	Handler = db

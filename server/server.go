@@ -12,6 +12,8 @@ import (
 func Run() {
 	e := echo.New()
 
+	e.Use(logger.HttpMiddleware())
+
 	v1 := e.Group("/api/v1")
 
 	routes.Load(v1)
@@ -19,6 +21,7 @@ func Run() {
 	port := strings.Join([]string{":", env.Get("PORT")}, "")
 
 	if err := e.Start(port); err != nil {
-		logger.Error(err.Error())
+		logger.Use().Error().
+			Msg(err.Error())
 	}
 }

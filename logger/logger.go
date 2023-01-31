@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog"
 )
 
@@ -30,11 +32,23 @@ func Init() {
 	logger = zerolog.New(outputs).With().Timestamp().Logger()
 }
 
-func Info(msg string) {
-	logger.Info().Msg(msg)
+func HttpMiddleware() echo.MiddlewareFunc {
+	return middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogStatus: true,
+		LogURI:    true,
+		LogMethod: true,
+		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+			logger.Info().
+				Str("method", v.Method).
+				Str("uri", v.URI).
+				Int("status", v.Status).
+				Msg("request")
+
+			return nil
+		},
+	})
 }
 
-func Error(msg string) {
-	logger.Error().Msg(msg)
-	os.Exit(1)
+func Use() *zerolog.Logger {
+	return &logger
 }
