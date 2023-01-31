@@ -1,16 +1,11 @@
 package main
 
 import (
-	"fast-menu-api/routes"
-
-	"github.com/labstack/echo/v4"
+	"fast-menu-api/config/env"
+	"fast-menu-api/server"
 )
 
 func main() {
-	e := echo.New()
-	v1 := e.Group("/api/v1")
-
-	routes.Load(v1)
-
-	e.Logger.Fatal(e.Start(":5000"))
+	env.Load()
+	server.Run()
 }
