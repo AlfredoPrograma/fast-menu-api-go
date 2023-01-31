@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var Handler *gorm.DB
 
 func Connect() {
 	user := env.Get("POSTGRES_USER")
@@ -29,5 +29,5 @@ func Connect() {
 		logger.Error(err.Error())
 	}
 
-	DB = db
+	Handler = db
 }
