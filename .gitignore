@@ -7,3 +7,6 @@ watch.sh
 
 # DOCKER
 /docker
+
+# LOGS
+*.log

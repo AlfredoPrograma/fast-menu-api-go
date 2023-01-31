@@ -2,6 +2,7 @@ package server
 
 import (
 	"fast-menu-api/config/env"
+	"fast-menu-api/logger"
 	"fast-menu-api/routes"
 	"strings"
 
@@ -16,5 +17,8 @@ func Run() {
 	routes.Load(v1)
 
 	port := strings.Join([]string{":", env.Get("PORT")}, "")
-	e.Logger.Fatal(e.Start(port))
+
+	if err := e.Start(port); err != nil {
+		logger.Error(err.Error())
+	}
 }

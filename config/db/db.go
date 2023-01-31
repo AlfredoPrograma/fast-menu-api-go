@@ -2,6 +2,7 @@ package db
 
 import (
 	"fast-menu-api/config/env"
+	"fast-menu-api/logger"
 	"fmt"
 
 	"gorm.io/driver/postgres"
@@ -22,6 +23,11 @@ func Connect() {
 		host, port, user, password, database,
 	)
 
-	// TODO: Add error handling
-	DB, _ = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		logger.Error(err.Error())
+	}
+
+	DB = db
 }

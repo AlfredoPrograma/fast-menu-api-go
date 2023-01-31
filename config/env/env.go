@@ -1,10 +1,17 @@
 package env
 
-import "github.com/spf13/viper"
+import (
+	"fast-menu-api/logger"
+
+	"github.com/spf13/viper"
+)
 
 func Load() {
 	viper.SetConfigFile(".env")
-	viper.ReadInConfig()
+
+	if err := viper.ReadInConfig(); err != nil {
+		logger.Error(err.Error())
+	}
 }
 
 func Get(key string) string {
