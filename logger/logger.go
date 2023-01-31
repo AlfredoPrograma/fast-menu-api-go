@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/pkgerrors"
 )
 
 const LOGS_FILENAME = "app.log"
@@ -25,28 +24,17 @@ func openFileWriter() *os.File {
 }
 
 func Init() {
+	consoleWriter := zerolog.ConsoleWriter{Out: os.Stdout}
 	fileWriter := openFileWriter()
 
-	outputs := zerolog.MultiLevelWriter(fileWriter, os.Stdout)
+	outputs := zerolog.MultiLevelWriter(fileWriter, consoleWriter)
+	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
 
-	logger = zerolog.New(outputs).With().Timestamp().Logger()
-}
-
-func HttpMiddleware() echo.MiddlewareFunc {
-	return middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
-		LogStatus: true,
-		LogURI:    true,
-		LogMethod: true,
-		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
-			logger.Info().
-				Str("method", v.Method).
-				Str("uri", v.URI).
-				Int("status", v.Status).
-				Msg("request")
-
-			return nil
-		},
-	})
+	logger = zerolog.New(outputs).
+		With().
+		Timestamp().
+		Stack().
+		Logger()
 }
 
 func Use() *zerolog.Logger {

@@ -3,6 +3,7 @@ package server
 import (
 	"fast-menu-api/config/env"
 	"fast-menu-api/logger"
+	"fast-menu-api/middlewares"
 	"fast-menu-api/routes"
 	"strings"
 
@@ -12,7 +13,8 @@ import (
 func Run() {
 	e := echo.New()
 
-	e.Use(logger.HttpMiddleware())
+	e.Use(middlewares.HttpLogger())
+	e.Use(middlewares.Recover())
 
 	v1 := e.Group("/api/v1")
 
