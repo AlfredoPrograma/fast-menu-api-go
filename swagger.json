@@ -1,0 +1,38 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "FastMenu is a web application dedicated to majority of restaurants and food\ncompanies, which want to generate _amazing_ digital menus",
+    "title": "FastMenu API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api/v4",
+  "paths": {
+    "/example": {
+      "get": {
+        "description": "Lists all examples",
+        "tags": [
+          "Example"
+        ],
+        "operationId": "getAllExamples"
+      },
+      "post": {
+        "description": "Creates a new example",
+        "tags": [
+          "Example"
+        ],
+        "operationId": "createExample"
+      }
+    }
+  }
+}
