@@ -26,6 +26,13 @@ application.
 5. Run `go build ./cmd/main.go` to compile application into binary file (For
    deploy or prod)
 
+### _scripts Folder
+
+There are utility `.sh` scripts inside `_scripts` directory:
+
+- `serve-docs.sh`: Generates `swagger.json` file and serves the docs page
+  _(needs to have [goswagger](https://goswagger.io/) installed to run it)_.
+
 ## Technologies
 
 - Go:
