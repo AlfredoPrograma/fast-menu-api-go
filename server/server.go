@@ -23,7 +23,9 @@ func Run() {
 	port := strings.Join([]string{":", env.Get("PORT")}, "")
 
 	if err := e.Start(port); err != nil {
-		logger.Use().Error().
-			Msg(err.Error())
+		logger.Use().
+			Error().
+			Err(err).
+			Msg("")
 	}
 }
